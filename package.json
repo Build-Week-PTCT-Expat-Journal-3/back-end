@@ -4,8 +4,8 @@
   "description": "First Commit",
   "main": "index.js",
   "scripts": {
-  "server": "nodemon index.js",
-  "test": "jest --watch"
+    "server": "nodemon index.js",
+    "test": "jest --watch"
   },
   "repository": {
     "type": "git",
