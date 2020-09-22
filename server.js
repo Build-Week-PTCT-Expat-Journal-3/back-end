@@ -13,6 +13,7 @@ server.use(express.json());
 
 
 server.use(storyRouter);
+server.use('/api/auth', authRouter);
 
 server.use((err, req, res, next) => {
 	console.log(err)	
