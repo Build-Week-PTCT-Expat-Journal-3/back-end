@@ -1,20 +1,20 @@
 const express = require("express")
 const db = require("./story-model")
+const restrict = require("../auth/authenticate-middleware");
 
 const router = express.Router()
 
 //GET all stories
-router.get("/api/story", async (req, res, next) => {
+router.get("/api/story",restrict(), async (req, res, next) => {
 	try {
-        const stori = await db.find()
-		res.json(stori)
+        res.json(await db.find())
 	} catch(err) {
 		next(err)
 	}
 })
 
 //GET a story by id
-router.get("/api/story/:id", async (req, res, next) => {
+router.get("/api/story/:id",restrict(), async (req, res, next) => {
 	try {
 		const stori = await db.findById(req.params.id)
 		if (!stori) {
@@ -30,7 +30,7 @@ router.get("/api/story/:id", async (req, res, next) => {
 })
 
 //GET stories by user id
-router.get("/api/story/:id/story", async (req, res, next) => {
+router.get("/api/story/:id/story",restrict(), async (req, res, next) => {
 	try {
 		const stori = await db.findByStoryId(req.params.id)
 		if (!stori) {
@@ -46,7 +46,7 @@ router.get("/api/story/:id/story", async (req, res, next) => {
 })
 
 //Post
-router.post("/api/story/:id/story", async (req, res, next) => {
+router.post("/api/story/:id/story",restrict(), async (req, res, next) => {
 	try {
         const stori = await db.addStory(req.body)
         res.status(201).json(stori)
@@ -57,7 +57,7 @@ router.post("/api/story/:id/story", async (req, res, next) => {
 })
 
 //PUT
-router.put("/api/story/:id", async (req, res, next) => {
+router.put("/api/story/:id",restrict(), async (req, res, next) => {
 	try {
 		const {id} = req.params
 		const newStory = { ...req.body }
@@ -72,7 +72,7 @@ router.put("/api/story/:id", async (req, res, next) => {
 })
 
 //delete
-router.delete("/api/story/:id", async (req, res, next) => {
+router.delete("/api/story/:id",restrict(), async (req, res, next) => {
 	try {
 		const { id } = req.params
 		
