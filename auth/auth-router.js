@@ -2,6 +2,7 @@ const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Users = require("./auth-model");
+const secrets = require("./secret")
 
 router.post("/register", async (req, res, next) => {
   try {
@@ -80,10 +81,12 @@ router.post("/login", async (req, res, next) => {
       userId: user.id,
       username: user.username
     };
+
+    const secret = secrets.jwtSecret;
   
     res.json({
       message: `Welcome ${user.username}!`,
-      token: jwt.sign(payload, process.env.JWT_SECRET)
+      token: jwt.sign(payload, secret)
     });
   } catch (err) {
     next(err);
