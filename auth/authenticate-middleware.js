@@ -1,7 +1,10 @@
 const jwt = require("jsonwebtoken")
+const constant = require("./secret")
 
 function restrict() {
 	return async (req, res, next) => {
+
+		const secret = constant.jwtSecret;
 		const authError = {
 			message: "Access Denied",
 		}
@@ -11,7 +14,7 @@ function restrict() {
       if (!token) {
         return res.status(401).json(authError)
       }
-      jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+      jwt.verify(token, secret, (err, decoded) => {
         if (err) { return res.status(401).json(authError)
       }
 
