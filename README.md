@@ -1,5 +1,7 @@
 # back-end
 
+https://expat-journalp16.herokuapp.com/
+
 POST /api/auth/register
 
 Expects an object with the following key constraints
