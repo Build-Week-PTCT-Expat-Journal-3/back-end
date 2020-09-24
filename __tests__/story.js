@@ -121,5 +121,5 @@ describe("Logs in and deletes stories", () => {
         .auth("cityboy", "abc3")
         .set("Authorization", res.body.token)
       expect(res.statusCode).toBe(204)
-    });
+    })
   });
