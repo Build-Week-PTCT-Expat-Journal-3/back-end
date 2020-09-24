@@ -7,17 +7,18 @@ const secrets = require("./secret")
 router.post("/register", async (req, res, next) => {
   try {
     const { username, password, firstname, location } = req.body;
+    if (!req.body.username) {
+      return res.status(400).json({
+        errorMessage: "Username is Missing"
+      });
+  }
+
     const user = await Users.findBy({ username }).first();
 
     if (user) {
       return res.status(409).json({
         message: "Username is already taken"
       });
-    }
-    if (!req.body.username) {
-        return res.status(400).json({
-          errorMessage: "Username is Missing"
-        });
     }
     if (!req.body.password) {
         return res.status(400).json({
